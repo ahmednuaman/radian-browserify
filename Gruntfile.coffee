@@ -31,13 +31,13 @@ module.exports = (grunt) ->
   # starts the local express server and watches your files as you code your awesome app.
   grunt.registerTask 'default', 'run the server and watch for changes', [
     'githash'
-    'install'
     'sprite'
     'compass:devSASS'
     # 'compass:devSCSS'
     # 'less:dev'
     # 'stylus:dev'
     'coffee:dev'
+    'browserify'
     'jade:dev'
     'express'
     'watch'
@@ -47,7 +47,6 @@ module.exports = (grunt) ->
   # This task runs both the unit and e2d tests.
   grunt.registerTask 'test', 'compile the app and run the tests', [
     'githash'
-    'install'
     'sprite'
     'compass:devSASS'
     # 'compass:devSCSS'
@@ -59,6 +58,7 @@ module.exports = (grunt) ->
     'coffee:dev'
     'karma'
     'coffee:e2e'
+    'browserify'
     'jade:dev'
     'express'
     'exec:e2e'
@@ -68,11 +68,11 @@ module.exports = (grunt) ->
   # This task runs the unit tests in [karma](http://karma-runner.github.io).
   grunt.registerTask 'unit', 'run unit tests', [
     'githash'
-    'install'
     # 'jshint'
     # 'jscs'
     'coffeelint'
     'coffee:dev'
+    'browserify'
     'karma'
   ]
 
@@ -80,7 +80,6 @@ module.exports = (grunt) ->
   # This task runs the e2e tests in [protractor](https://github.com/angular/protractor).
   grunt.registerTask 'e2e', 'run e2e tests', [
     'githash'
-    'install'
     'sprite'
     'compass:devSASS'
     # 'compass:devSCSS'
@@ -91,6 +90,7 @@ module.exports = (grunt) ->
     'coffeelint'
     'coffee:dev'
     'coffee:e2e'
+    'browserify'
     'jade:dev'
     'express'
     'exec:e2e'
@@ -98,13 +98,12 @@ module.exports = (grunt) ->
 
   # ## grunt build
   # This task builds the app. It starts by running all the preprocessors in production mode, compressing the images
-  # and packages up the app using the awesome [`r.js`](http://requirejs.org/docs/optimization.html) optimiser.
-  # It then copies files into place (by default into the `./build/` directory) and replaces the bower libraries with
-  # CDN versions. Finally it executes the crawler to make the app SEO friendly.
+  # and packages up the app using the awesome [`browserify`](http://browserify.org/). It then copies files into place
+  # (by default into the `./build/` directory) and replaces the third-party libraries with CDN versions. Finally it
+  # executes the crawler to make the app SEO friendly.
   grunt.registerTask 'build', 'build and package the app', [
     'clean'
     'githash'
-    'install'
     'sprite'
     'imagemin'
     'compass:prodSASS'
@@ -116,7 +115,7 @@ module.exports = (grunt) ->
     'coffee:prod'
     'jade:prod'
     'ngtemplates'
-    'requirejs'
+    'browserify'
     'copy'
     'express'
     'exec:crawl'
