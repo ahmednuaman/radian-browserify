@@ -5,23 +5,6 @@ module.exports = (grunt) ->
   # individual files for each task.
   grunt.loadTasks 'grunt'
 
-  # ## grunt install
-  # This task installs the bower dependancies.
-  grunt.registerTask 'install', 'install bower dependancies', () ->
-    done = @async()
-    config =
-      cmd: 'bower'
-      args: [
-        'install'
-      ]
-
-    child = grunt.util.spawn config, (err, result) ->
-      grunt.log.ok 'Installed bower dependancies'
-      done()
-
-    child.stdout.on 'data', (data) ->
-      grunt.log.write data
-
   # ## grunt githash
   # This task creates a Grunt config variable called `git-commit` that contains the latest git commit sha1 hash.
   grunt.registerTask 'githash', 'grabs the latest git commit hash', () ->
@@ -44,9 +27,8 @@ module.exports = (grunt) ->
       done()
 
   # ## grunt default
-  # This task is useful for running whilst you're developing your app. It installs the [Bower](http://bower.io)
-  # dependancies, runs the development preprocessor tasks, starts the local express server and watches your files
-  # as you code your awsome app.
+  # This task is useful for running whilst you're developing your app. It runs the development preprocessor tasks,
+  # starts the local express server and watches your files as you code your awesome app.
   grunt.registerTask 'default', 'run the server and watch for changes', [
     'githash'
     'install'
